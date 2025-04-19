@@ -36,7 +36,7 @@ export const loginController = async (req, res) => {
   const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" });
   res.cookie("token", token, {
     httpOnly: true,
-    secure: true,
+    secure: process.env.RUN === 'production',
     sameSite: "lax",
     maxAge: 24 * 60 * 60 * 1000, // 1 day in milliseconds
   }).json({success: true,  message: "Login successful", user: {
@@ -81,7 +81,7 @@ export const verifyTokenController = async (req, res) => {
       res.clearCookie("token", {
         httpOnly: true,
         sameSite: "lax",
-        secure: true, // Set to true in production with HTTPS
+        secure: process.env.RUN === 'production', // Set to true in production with HTTPS
       });
   
       return res.status(200).json({ success: true, message: "Logout successful" });
