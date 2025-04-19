@@ -25,7 +25,6 @@ const server = createServer(app)
 const io = new Server(server, {
     cors: {
       origin: process.env.ORIGIN, // allow frontend origin
-      credentials: true               // allow cookies and auth headers
     }
   })
  
