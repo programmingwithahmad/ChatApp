@@ -37,7 +37,8 @@ export const loginController = async (req, res) => {
   res.cookie("token", token, {
     httpOnly: true,
     secure: process.env.RUN === 'production',
-    sameSite: "lax",
+    // sameSite: "lax",
+     sameSite: "None",
     maxAge: 24 * 60 * 60 * 1000, // 1 day in milliseconds
   }).json({success: true,  message: "Login successful", user: {
     _id:user._id,
@@ -80,7 +81,8 @@ export const verifyTokenController = async (req, res) => {
     try {
       res.clearCookie("token", {
         httpOnly: true,
-        sameSite: "lax",
+        // sameSite: "lax",
+        sameSite: "None",
         secure: process.env.RUN === 'production', // Set to true in production with HTTPS
       });
   
